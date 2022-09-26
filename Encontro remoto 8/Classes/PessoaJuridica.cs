@@ -13,6 +13,8 @@ namespace Encontro_remoto_2.Classes
         
         public string? razaoSocial { get; set; }
 
+        public string caminho {get; private set;} = "Database/PessoaJuridica.csv"; 
+
         public override float CalcularImposto(float rendimento)
         {
             if (rendimento <= 3000)
@@ -64,5 +66,38 @@ namespace Encontro_remoto_2.Classes
 
            return false;
         }
+   
+    public void Inserir(PessoaJuridica pj)
+    {
+        Utils.VerificarPastaArquivo(caminho);
+
+        string[] pjValores = {$"{pj.nome},{pj.cnpj},{pj.razaoSocial}"};
+
+        File.AppendAllLines(caminho, pjValores);
+
+    }
+
+    public List<PessoaJuridica> LerArquivo()
+    {
+        List<PessoaJuridica> listaPj = new List<PessoaJuridica>();
+
+        string [] linhas = File.ReadAllLines(caminho);
+
+        foreach (string cadaLinha in linhas)
+        {
+            string[] atributos = cadaLinha.Split(",");
+
+            PessoaJuridica novaPj = new PessoaJuridica();
+
+            novaPj.nome = atributos[0];
+            novaPj.cnpj = atributos[1];
+            novaPj.razaoSocial = atributos[2];
+
+            listaPj.Add(novaPj);
+        }
+
+        return listaPj;
+    }
+
     }
 }
