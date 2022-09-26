@@ -71,59 +71,69 @@ do
                         Console.WriteLine($"Digite o nome da Pessoa Física que deseja cadastrar");
                         novaPF.nome = Console.ReadLine();
 
-                        bool dataValida;
-                        do
-                        {
-                            Console.WriteLine($"Digite a data de nascimento Ex: DD/MM/AAAA");
-                            string? dataNascimento = Console.ReadLine();
+                        // bool dataValida;
+                        // do
+                        // {
+                        //     Console.WriteLine($"Digite a data de nascimento Ex: DD/MM/AAAA");
+                        //     string? dataNascimento = Console.ReadLine();
 
-                            dataValida = novaPF.ValidarDataNasc(dataNascimento);
+                        //     dataValida = novaPF.ValidarDataNasc(dataNascimento);
 
-                            if (dataValida)
-                            {
-                                DateTime.TryParse(dataNascimento, out DateTime dataConvertida);
-                                novaPF.dataNasc = dataConvertida;
-                            }else
-                            {
-                                Console.ForegroundColor = ConsoleColor.DarkRed;
-                                Console.WriteLine($"Data Invalida. Digite uma data válida");
-                                Console.ResetColor();
-                                Thread.Sleep(3000);
+                        //     if (dataValida)
+                        //     {
+                        //         DateTime.TryParse(dataNascimento, out DateTime dataConvertida);
+                        //         novaPF.dataNasc = dataConvertida;
+                        //     }else
+                        //     {
+                        //         Console.ForegroundColor = ConsoleColor.DarkRed;
+                        //         Console.WriteLine($"Data Invalida. Digite uma data válida");
+                        //         Console.ResetColor();
+                        //         Thread.Sleep(3000);
                                 
-                            }
+                        //     }
                             
-                        } while (!dataValida); 
+                        // } while (!dataValida); 
 
-                        Console.WriteLine($"Digite o numero do CPF");
-                        novaPF.cpf = Console.ReadLine();
+                        // Console.WriteLine($"Digite o numero do CPF");
+                        // novaPF.cpf = Console.ReadLine();
 
-                        Console.WriteLine($"Digite o rendimento mensal (somente números)");
-                        novaPF.rendimento = float.Parse(Console.ReadLine());
+                        // Console.WriteLine($"Digite o rendimento mensal (somente números)");
+                        // novaPF.rendimento = float.Parse(Console.ReadLine());
 
-                        Console.WriteLine($"Digite o logradouro");
-                        novoEndPF.logradouro = Console.ReadLine();
+                        // Console.WriteLine($"Digite o logradouro");
+                        // novoEndPF.logradouro = Console.ReadLine();
 
-                        Console.WriteLine($"Digite o número");
-                        novoEndPF.numero = int.Parse(Console.ReadLine());
+                        // Console.WriteLine($"Digite o número");
+                        // novoEndPF.numero = int.Parse(Console.ReadLine());
 
-                        Console.WriteLine($"Digite o Complemento (Aperte 'ENTER' para vazio)");                        
-                        novoEndPF.complemento = Console.ReadLine();
+                        // Console.WriteLine($"Digite o Complemento (Aperte 'ENTER' para vazio)");                        
+                        // novoEndPF.complemento = Console.ReadLine();
 
-                        Console.WriteLine($"Este endereço é comercial? S/N?");
-                        string endCom = Console.ReadLine().ToUpper();
+                        // Console.WriteLine($"Este endereço é comercial? S/N?");
+                        // string endCom = Console.ReadLine().ToUpper();
 
-                        if (endCom == "S")
-                        {
-                            novoEndPF.endComercial = true;
+                        // if (endCom == "S")
+                        // {
+                        //     novoEndPF.endComercial = true;
                         
-                        }else
-                        {
-                            novoEndPF.endComercial = false;
-                        }
+                        // }else
+                        // {
+                        //     novoEndPF.endComercial = false;
+                        // }
                                              
-                        novaPF.endereco = novoEndPF;
+                        // novaPF.endereco = novoEndPF;
 
-                        listaPF.Add(novaPF);
+                        // listaPF.Add(novaPF);
+
+                        // StreamWriter sw = new StreamWriter($"{novaPF.nome}.txt");
+                        // sw.WriteLine(novaPF.nome);
+                        // sw.Close();
+
+                        using (StreamWriter sw = new StreamWriter($"{novaPF.nome}.txt"))
+                        {
+                            sw.WriteLine(novaPF.nome);
+                        }
+                        
 
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                         Console.WriteLine($"Cadastro realizado com sucesso!");
@@ -135,32 +145,46 @@ do
 
                         Console.Clear();
 
-                        if (listaPF.Count > 0)
-                        {
+//                         if (listaPF.Count > 0)
+//                         {
                             
-                            foreach (PessoaFisica cadaPF in listaPF)
-                            {
-                                Console.Clear();
-                                Console.WriteLine(@$"
+//                             foreach (PessoaFisica cadaPF in listaPF)
+//                             {
+//                                 Console.Clear();
+//                                 Console.WriteLine(@$"
 
-Nome: {cadaPF.nome}
-Endereco: {cadaPF.endereco.logradouro}, {cadaPF.endereco.numero}
-Data de Nascimento: {cadaPF.dataNasc.ToString("d")}
-Imposto a ser pago: {metodosPF.CalcularImposto(cadaPF.rendimento).ToString("C")}
-");
+// Nome: {cadaPF.nome}
+// Endereco: {cadaPF.endereco.logradouro}, {cadaPF.endereco.numero}
+// Data de Nascimento: {cadaPF.dataNasc.ToString("d")}
+// Imposto a ser pago: {metodosPF.CalcularImposto(cadaPF.rendimento).ToString("C")}
+// ");
 
-                                Console.WriteLine($"Aperte 'ENTER' para continuar");
-                                Console.ReadLine();
-                            }
+//                                 Console.WriteLine($"Aperte 'ENTER' para continuar");
+//                                 Console.ReadLine();
+//                             }
 
-                        }else
+//                         }else
+//                         {
+//                             Console.WriteLine($"Lista vazia");
+//                             Thread.Sleep(3000); 
+//                         }
+
+
+                        using (StreamReader sr = new StreamReader(""))
                         {
-                            Console.WriteLine($"Lista vazia");
-                            Thread.Sleep(3000); 
+                            string line;
+                            while ((line = sr.ReadLine()) != null)
+                            {
+                                Console.WriteLine($"{line}");
+                                
+                            }
                         }
 
-                        break;
+                        Console.WriteLine($"Aperte ENTER para continuar");
+                        Console.ReadLine();
 
+                        break;
+                    
                     case "0":
                         Console.ForegroundColor = ConsoleColor.DarkBlue;
                         Console.WriteLine($"Voltar ao menu anterior");
@@ -177,37 +201,18 @@ Imposto a ser pago: {metodosPF.CalcularImposto(cadaPF.rendimento).ToString("C")}
                 }
 
 
-            } while (opcaoPF != "0");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-           
-
+            } while (opcaoPF != "0");     
             break;
 
         case "2":
 
+            PessoaJuridica metodosPj = new PessoaJuridica();
             PessoaJuridica novaPj = new PessoaJuridica();
-
             Endereco novoEndPj = new Endereco();
 
-            novaPj.nome = "Nome Pj";
-            novaPj.razaoSocial = "Razao Social Pj";
-            novaPj.cnpj = "12.345.678/0001-34";
+            novaPj.nome = "CPX";
+            novaPj.razaoSocial = "CPX SENAI";
+            novaPj.cnpj = "20.345.678/0001-34";
             novaPj.rendimento = 6000.5f;
 
             novoEndPj.logradouro = "Rua Niteroi";
@@ -216,18 +221,25 @@ Imposto a ser pago: {metodosPF.CalcularImposto(cadaPF.rendimento).ToString("C")}
             novoEndPj.endComercial = true;
 
             novaPj.endereco = novoEndPj;
+            
+            metodosPj.Inserir(novaPj);
 
-            Console.Clear();
-            Console.WriteLine(@$"
+            List<PessoaJuridica> listaExibicaoPj = metodosPj.LerArquivo();
 
-Nome: {novaPj.nome}
-Razao Social: {novaPj.razaoSocial}
-CNPJ: {novaPj.cnpj} - valido: {(novaPj.Validarcnpj(novaPj.cnpj) ? "Sim" : "Não")}
-");
-            Console.WriteLine(novaPj.Validarcnpj("12.345.678/0001-34"));
+            foreach (PessoaJuridica cadaItem in listaExibicaoPj)
+            {
+               Console.Clear();
+                Console.WriteLine(@$"
 
-            Console.WriteLine($"Aperte 'ENTER' para continuar");
-            Console.ReadLine();
+ Nome: {cadaItem.nome}
+ Razao Social: {cadaItem.razaoSocial}
+ CNPJ: {cadaItem.cnpj} - valido: {(cadaItem.Validarcnpj(cadaItem.cnpj) ? "Sim" : "Não")}
+ "); 
+             Console.WriteLine($"Aperte 'ENTER' para continuar");
+             Console.ReadLine();
+            }
+
+            
 
             break;
 
